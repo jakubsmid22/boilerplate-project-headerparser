@@ -1,34 +1,71 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timestamp Microservice</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Timestamp Microservice</h1>
+    <h2>Route: /api/:date</h2>
 
-<html>
+    <div class="example">
+      <p>Current Date String:</p>
+      <a id="example1"></a>
+    </div>
 
-   <head>
-      <title>Request Header Parser</title>
-      <link rel="shortcut icon" href="https://cdn.hyperdev.com/us-east-1%3A52a203ff-088b-420f-81be-45bf559d01b1%2Ffavicon.ico" type="image/x-icon"/>
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-      <link href="style.css" rel="stylesheet" type="text/css">
-   </head>
+    <div class="example">
+      <p>Current Unix Date:</p>
+      <a id="example2"></a>
+    </div>
 
-   <body>
-      <div class="container">
-        <h1>Request Header Parser Microservice</h1>
+    <div class="example">
+      <p>Custom Date String:</p>
+      <input type="date" id="input1" />
+      <a id="example3"></a>
+    </div>
 
-        <h2>Example Usage:</h2>
-        <p>
-          <a href="api/whoami">[base url]/api/whoami</a>
-        </p>
+    <div class="example">
+      <p>Custom Unix Date:</p>
+      <input type="number" id="input2" />
+      <a id="example4"></a>
+    </div>
 
-        <h2>Example Output:</h2>
-        <p>
-          <code>{"ipaddress":"::ffff:159.20.14.100","language":"en-US,en;q=0.5",<br>"software":"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0"}</code>
-        </p>
-      </div>
-      <div class="footer">
-        <p>
-          by <a href="https://www.freecodecamp.org">freeCodeCamp</a>
-        </p>
-      </div>
-   </body>
+    <script>
+      const example1 = document.getElementById("example1");
+      const date = new Date().toISOString().split("T")[0];
+      example1.textContent = `/api/:date (:date = ${date})`;
+      example1.href = `/api/${date}`;
 
+      const example2 = document.getElementById("example2");
+      const date2 = new Date().getTime();
+      example2.textContent = `/api/:date (:date = ${date2})`;
+      example2.href = `/api/${date2}`;
 
+      const input1 = document.getElementById("input1");
+      const example3 = document.getElementById("example3");
+      input1.value = date;
+      let date3 = date;
+      example3.textContent = `/api/:date (:date = ${date3})`;
+      example3.href = `/api/${date3}`;
+      input1.addEventListener("input", () => {
+        date3 = new Date(input1.value).toISOString().split("T")[0];
+        example3.textContent = `/api/:date (:date = ${date3})`;
+        example3.href = `/api/${date3}`;
+      });
+
+      const input2 = document.getElementById("input2");
+      const example4 = document.getElementById("example4");
+      input2.value = date2;
+      let date4 = date2;
+      example4.textContent = `/api/:date (:date = ${date4})`;
+      example4.href = `/api/${date4}`;
+      input2.addEventListener("input", () => {
+        date4 = new Date(Number(input2.value)).getTime();
+        example4.textContent = `/api/:date (:date = ${date4})`;
+        example4.href = `/api/${date4}`;
+      });
+    </script>
+  </body>
 </html>
